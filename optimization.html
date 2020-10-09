@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Optimization Problems Playground</title>
+<style><!--
+table { border-collapse: collapse; }
+td { padding: 2px; }
+.linear { background: #cfc; margin: 1em; }
+.nonlinear { background: #fcc; margin: 1em; }
+--></style>
+<script>
+function f1() {
+  let a0 = parseInt(document.getElementById("a0").value);
+  let a1 = parseInt(document.getElementById("a1").value);
+  let a2 = parseInt(document.getElementById("a2").value);
+  let a3 = parseInt(document.getElementById("a3").value);
+  let a4 = parseInt(document.getElementById("a4").value);
+  let a5 = parseInt(document.getElementById("a5").value);
+  let a6 = parseInt(document.getElementById("a6").value);
+  let a7 = parseInt(document.getElementById("a7").value);
+  let a8 = parseInt(document.getElementById("a8").value);
+  let a9 = parseInt(document.getElementById("a9").value);
+  // max: (9,9,9,9,0,9,0,9,9,9)
+  let v = (a0-5)+(a1-3)*(a2-4)+a3*5-(a4-9)*6+(a5-2)*7-a6*4+(a7-8)*10+(a8-3)*(a9-6);
+  console.log("f1("+a0+", "+a1+", "+a2+", "+a3+", "+a4+", "+
+              a5+", "+a6+", "+a7+", "+a8+", "+a9+") = "+v);
+  document.getElementById("score1").innerHTML = v;
+}
+
+// /* optim.c */
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <math.h>
+// #include <float.h>
+//
+// int main(int argc, char* argv[])
+// {
+//     double m = -DBL_MAX;
+//     for (int b0 = 0; b0 < 10; b0++) {
+//     for (int b1 = 0; b1 < 10; b1++) {
+//     for (int b2 = 0; b2 < 10; b2++) {
+//     for (int b3 = 0; b3 < 10; b3++) {
+//     for (int b4 = 0; b4 < 10; b4++) {
+//     for (int b5 = 0; b5 < 10; b5++) {
+//     for (int b6 = 0; b6 < 10; b6++) {
+//     for (int b7 = 0; b7 < 10; b7++) {
+//     for (int b8 = 0; b8 < 10; b8++) {
+//     for (int b9 = 0; b9 < 10; b9++) {
+//         double v = b0+b1*sin(b2*(b3+b5)-b4+b0)+(b5-b1)*cos(pow(b6-b3, 1+fabs(b7-b8))+b9*b1);
+//         if (m < v) {
+//             m = v;
+//             printf("m=%f (%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)\n",
+//                    m, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9);
+//         }
+//     }
+//     }
+//     }
+//     }
+//     }
+//     }
+//     }
+//     }
+//     }
+//     }
+//     return 0;
+// }
+function f2() {
+  let b0 = parseInt(document.getElementById("b0").value);
+  let b1 = parseInt(document.getElementById("b1").value);
+  let b2 = parseInt(document.getElementById("b2").value);
+  let b3 = parseInt(document.getElementById("b3").value);
+  let b4 = parseInt(document.getElementById("b4").value);
+  let b5 = parseInt(document.getElementById("b5").value);
+  let b6 = parseInt(document.getElementById("b6").value);
+  let b7 = parseInt(document.getElementById("b7").value);
+  let b8 = parseInt(document.getElementById("b8").value);
+  let b9 = parseInt(document.getElementById("b9").value);
+  // max: (9,9,3,8,0,0,3,0,3,7)
+  let v = b0+b1*Math.sin(b2*(b3+b5)-b4+b0)+(b5-b1)*Math.cos((b6-b3)**(1+Math.abs(b7-b8))+b9*b1);
+  console.log("f2("+b0+", "+b1+", "+b2+", "+b3+", "+b4+", "+
+              b5+", "+b6+", "+b7+", "+b8+", "+b9+") = "+v);
+  document.getElementById("score2").innerHTML = Math.round(v*100);
+}
+</script>
+<body>
+<h1>Optimization Problems Playground</h1>
+
+<p>
+An optimization problem is the problem of finding the best combination of parameters
+that maximize (or minimize) a given score function (under some restriction).
+In some cases, it's easy. In the most other cases though, it's pretty darn hard!
+
+<p>
+Here's an easy one:
+Find the best parameters for a linear function.
+Play with the following sliders to get as high score as possible.
+The maximum score possible is 210. Can you get the highest score?
+
+<div class=linear>
+<strong>Linear function</strong> (Max score: 210)
+<table border>
+<tr><td>0</td><td><input onchange="f1()" type="range" min="0" max="9" id="a0"></td></tr>
+<tr><td>1</td><td><input onchange="f1()" type="range" min="0" max="9" id="a1"></td></tr>
+<tr><td>2</td><td><input onchange="f1()" type="range" min="0" max="9" id="a2"></td></tr>
+<tr><td>3</td><td><input onchange="f1()" type="range" min="0" max="9" id="a3"></td></tr>
+<tr><td>4</td><td><input onchange="f1()" type="range" min="0" max="9" id="a4"></td></tr>
+<tr><td>5</td><td><input onchange="f1()" type="range" min="0" max="9" id="a5"></td></tr>
+<tr><td>6</td><td><input onchange="f1()" type="range" min="0" max="9" id="a6"></td></tr>
+<tr><td>7</td><td><input onchange="f1()" type="range" min="0" max="9" id="a7"></td></tr>
+<tr><td>8</td><td><input onchange="f1()" type="range" min="0" max="9" id="a8"></td></tr>
+<tr><td>9</td><td><input onchange="f1()" type="range" min="0" max="9" id="a9"></td></tr>
+<tr><td>Score</td><td align=center><span id="score1"></span></td></tr>
+</table>
+</div>
+
+<p>
+Now, here's a tricky one: a non-linear function.
+Do the same for with the following sliders.
+The maximum score possible is 2700.
+Can you get it?
+
+<div class=nonlinear>
+<strong>Non-linear function</strong> (Max score: 2700)
+<table border>
+<tr><td>0</td><td><input onchange="f2()" type="range" min="0" max="9" id="b0"></td></tr>
+<tr><td>1</td><td><input onchange="f2()" type="range" min="0" max="9" id="b1"></td></tr>
+<tr><td>2</td><td><input onchange="f2()" type="range" min="0" max="9" id="b2"></td></tr>
+<tr><td>3</td><td><input onchange="f2()" type="range" min="0" max="9" id="b3"></td></tr>
+<tr><td>4</td><td><input onchange="f2()" type="range" min="0" max="9" id="b4"></td></tr>
+<tr><td>5</td><td><input onchange="f2()" type="range" min="0" max="9" id="b5"></td></tr>
+<tr><td>6</td><td><input onchange="f2()" type="range" min="0" max="9" id="b6"></td></tr>
+<tr><td>7</td><td><input onchange="f2()" type="range" min="0" max="9" id="b7"></td></tr>
+<tr><td>8</td><td><input onchange="f2()" type="range" min="0" max="9" id="b8"></td></tr>
+<tr><td>9</td><td><input onchange="f2()" type="range" min="0" max="9" id="b9"></td></tr>
+<tr><td>Score</td><td align=center><span id="score2"></span></td></tr>
+</table>
+</div>
+
+<p>
+The difficulty of the above problem is that in a non-linear function,
+the result is affected by multiple parameters in a convoluted way;
+each slider messes with other sliders, or its effect is rather
+unintuitive.  The only way to get the best solution for this is to
+exhaustively search every possible combination.  For a small problem,
+it is still possible -- there are ten sliders (parameters) in this
+problem and each slider has ten different values, which gives
+10<sup>10</sup> combinations in total.  They can be inspected one by
+one with modern computers in a reasonable amount of time. But "real"
+optimization problems - ones that are used in industrial setups -
+tend to have thousands (if not hundreds of thousands) of parameters.
+How do we get the best solution for this kind of problems?
+
+<hr>
+<address>Yusuke Shinyama</address>
